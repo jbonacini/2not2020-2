@@ -94,16 +94,6 @@ estadosNe.push(estado1, estado2, estado3, estado4, estado5, estado6, estado7, es
 */
 
 let dmg = (area, populacao) => populacao / area
-console.log(dmg(estado1.area, estado1.populacao))
-console.log(dmg(estado2.area, estado2.populacao))
-console.log(dmg(estado3.area, estado3.populacao))
-console.log(dmg(estado4.area, estado4.populacao))
-console.log(dmg(estado5.area, estado5.populacao))
-console.log(dmg(estado6.area, estado6.populacao))
-console.log(dmg(estado7.area, estado7.populacao))
-console.log(dmg(estado8.area, estado8.populacao))
-console.log(dmg(estado9.area, estado9.populacao))
-
 
 /*
    3) Percorra o vetor estadosNe usando um for tradicional. Para cada estado,
@@ -114,9 +104,10 @@ console.log(dmg(estado9.area, estado9.populacao))
       Durante este mesmo loop, elimine a propriedade 'sigla' dos objetos.
 
 */
-
-for(let prop in estado1) {
-    console.log(prop)
+for(let i = 0; i < estadosNe.length; i++ ) {
+    estadosNe[i]['densidade demografica'] = 
+    dmg(estadosNe[i].area, estadosNe[i].populacao)
+    delete estadosNe[i].sigla
 }
 
 /* 4) Escreva uma arrow function que receba um objeto. Na função, use for..in
@@ -124,9 +115,21 @@ for(let prop in estado1) {
 
 */
 
+let pobj = obj => {
+    for(let prop in obj) {
+        console.log(`Atributo: ${prop}; Valor: ${obj[prop]}`);
+    }
+    console.log('-------------------------');
+    
+}
+
 /* 5) Percorra o vetor estadosNe usando for..of. Para cada objeto no vetor,
       invoque a função escrita em 4) para exibi-lo.
+*/
 
+for(let obj of estadosNe) {
+    pobj(obj)
+}
 /*
    6)
       a) Declare um vetor vazio.
@@ -139,3 +142,16 @@ for(let prop in estado1) {
          já existentes, e assim por diante.
 
 */
+
+let estados = []
+estados.push(estado1.nome)
+estados.unshift(estado2.nome)
+estados.splice(1, 0, estado3.nome)
+estados.splice(1, 0, estado4.nome)
+estados.splice(2, 0, estado5.nome)
+estados.splice(1, 0, estado6.nome)
+estados.splice(4, 0, estado7.nome)
+estados.splice(2, 0, estado8.nome)
+estados.splice(1, 0, estado9.nome)
+
+console.log(estados);
