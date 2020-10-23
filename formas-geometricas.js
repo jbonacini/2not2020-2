@@ -47,4 +47,4 @@ const area = forma => {
 console.log(area(retangulo))
 console.log(area(triangulo))
 console.log(area(elipse))
-console.log(area(tchonga)) 
+console.log(area(tchonga))
