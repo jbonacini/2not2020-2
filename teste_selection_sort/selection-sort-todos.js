@@ -1,30 +1,34 @@
-function bubbleSort(vetor, fnComp) {
+function selectionSort(vetor, fnComp) {
     let passadas = 0, comparacoes = 0, totalTrocas = 0
-    let trocas
-    do {
-        passadas++
-        trocas = 0
 
-       
-        for(let i = 0; i <= vetor.length - 2; i++) {
+    function encontrarMenor(vetor, inicio) {
+        let posMenor = inicio
+        for(let i = inicio + 1; i < vetor.length; i++) {
+            if(! fnComp(vetor[i], vetor[posMenor])) posMenor = i
             comparacoes++
-           
-            if(fnComp(vetor[i], vetor[i + 1])) {
-            
-                [vetor[i], vetor[i + 1]] = [vetor[i + 1], vetor[i]]
-                trocas++
-                totalTrocas++
-            }
         }
+        return posMenor
+    }
 
-    } while(trocas > 0)
+    for(i = 0; i < vetor.length - 1; i++) {
+        passadas++
+        
+        posMenor = encontrarMenor(vetor, i + 1)
+        
+        comparacoes++
+        if(fnComp(vetor[i], vetor[posMenor])) { 
+           
+            [vetor[posMenor], vetor[i]] = [vetor[i], vetor[posMenor]]
+            totalTrocas++
+        }
+    }
     console.log({passadas, comparacoes, totalTrocas})
 }
 
 const covid  = require('../covid/covid-19.js')
 
 console.time('Teste todos os itens')
-bubbleSort(covid, (a, b) => {
+selectionSort(covid, (a, b) => {
     if(a.date == b.date){
         if(a.state> b.state) return true
         else if(a.state == b.state){
@@ -38,5 +42,4 @@ bubbleSort(covid, (a, b) => {
     else return false
 })
 console.timeEnd('Teste todos os itens')
-//console.log(covid)
 console.log('Memória usada (MB):', process.memoryUsage().heapUsed / 1024 / 1024)

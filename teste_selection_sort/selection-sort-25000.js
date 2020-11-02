@@ -1,23 +1,27 @@
-function bubbleSort(vetor, fnComp) {
+function selectionSort(vetor, fnComp) {
     let passadas = 0, comparacoes = 0, totalTrocas = 0
-    let trocas
-    do {
-        passadas++
-        trocas = 0
 
-       
-        for(let i = 0; i <= vetor.length - 2; i++) {
+    function encontrarMenor(vetor, inicio) {
+        let posMenor = inicio
+        for(let i = inicio + 1; i < vetor.length; i++) {
+            if(! fnComp(vetor[i], vetor[posMenor])) posMenor = i
             comparacoes++
-           
-            if(fnComp(vetor[i], vetor[i + 1])) {
-            
-                [vetor[i], vetor[i + 1]] = [vetor[i + 1], vetor[i]]
-                trocas++
-                totalTrocas++
-            }
         }
+        return posMenor
+    }
 
-    } while(trocas > 0)
+    for(i = 0; i < vetor.length - 1; i++) {
+        passadas++
+        
+        posMenor = encontrarMenor(vetor, i + 1)
+        
+        comparacoes++
+        if(fnComp(vetor[i], vetor[posMenor])) { 
+           
+            [vetor[posMenor], vetor[i]] = [vetor[i], vetor[posMenor]]
+            totalTrocas++
+        }
+    }
     console.log({passadas, comparacoes, totalTrocas})
 }
 
@@ -25,7 +29,7 @@ const covid  = require('../covid/covid-19')
 const itens_25000 = covid.slice(0,24999)
 
 console.time('Teste 25000 itens')
-bubbleSort(itens_25000, (a, b) => {
+selectionSort(itens_25000, (a, b) => {
     if(a.date == b.date){
         if(a.state> b.state) return true
         else if(a.state == b.state){

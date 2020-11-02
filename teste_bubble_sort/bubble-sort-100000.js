@@ -21,7 +21,7 @@ function bubbleSort(vetor, fnComp) {
     console.log({passadas, comparacoes, totalTrocas})
 }
 
-const covid  = require('../covid-19')
+const covid  = require('../covid/covid-19')
 const itens_100000 = covid.slice(0,99999)
 
 console.time('Teste 100000 itens')
@@ -40,5 +40,4 @@ bubbleSort(itens_100000, (a, b) => {
     else return false
 })
 console.timeEnd('Teste 100000 itens')
-//console.log(itens_100000)
 console.log('Memória usada (MB):', process.memoryUsage().heapUsed / 1024 / 1024)
